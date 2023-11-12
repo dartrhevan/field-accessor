@@ -1,7 +1,7 @@
 plugins {
     kotlin("jvm") version "1.8.0"
-//    application
-    `java-gradle-plugin`
+    id("kotlin-kapt")
+    id("java-library")
 }
 
 group = "org.dartrhevan.fieldaccessor"
@@ -11,22 +11,13 @@ repositories {
     mavenCentral()
 }
 
-gradlePlugin {
-    plugins {
-        create("hello") {
-            id = "com.example.hello"
-            implementationClass = "org.dartrhevan.fieldaccessor.GreetingPlugin"
-        }
-//        create("goodbye") {
-//            id = "com.example.goodbye"
-//            implementationClass = "com.example.goodbye.GoodbyePlugin"
-//        }
-    }
-}
-
 dependencies {
-    implementation(project(":core"))
+    api(project(":core"))
     implementation(kotlin("stdlib-jdk8"))
+    implementation("io.github.microutils:kotlin-logging-jvm:3.0.5")
+
+
+    kapt("com.google.auto.service", "auto-service", "1.0")
     annotationProcessor("com.google.auto.service", "auto-service", "1.0")
     compileOnly("com.google.auto.service", "auto-service", "1.0")
 

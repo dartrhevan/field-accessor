@@ -27,4 +27,10 @@ public class TestClassReflectFieldAccessor implements FieldAccessor<TestClass> {
             throw new RuntimeException(e);
         }
     }
+
+    @NotNull
+    @Override
+    public Class<TestClass> getType() {
+        return TestClass.class;
+    }
 }

@@ -1,0 +1,3 @@
+#foreach($cls in $classes)
+${cls.key}=${cls.value}
+#end

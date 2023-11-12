@@ -1,0 +1,37 @@
+package $package;
+
+import org.dartrhevan.fieldaccessor.api.FieldAccessor;
+import java.text.MessageFormat;
+
+@SuppressWarnings("unchecked")
+public class $accessorName implements FieldAccessor<$className> {
+    @Override
+    public <V> V get($className obj, String fieldName) {
+        switch (fieldName) {
+            #foreach($filed in $fields)
+            case "${filed.name}":
+                return (V) (Object) obj.${filed.getterName}();
+            #end
+            default:
+                throw new IllegalArgumentException(MessageFormat.format("Class {} does not contain field {}", "$className", fieldName));
+        }
+    }
+
+    @Override
+    public <V> void set($className obj, String fieldName, V value) {
+        switch (fieldName) {
+            #foreach($filed in $fields)
+                case "$filed":
+                obj.${filed.setterName}((${filed.type}) value);
+                break;
+            #end
+            default:
+                throw new IllegalArgumentException(MessageFormat.format("Class {} does not contain field {}", "$className", fieldName));
+        }
+    }
+
+    @Override
+    public Class<${package}.${className}> getType() {
+        return ${package}.${className}.class;
+    }
+}

@@ -4,6 +4,8 @@ import org.dartrhevan.fieldaccessor.TestClass;
 import org.dartrhevan.fieldaccessor.api.FieldAccessor;
 import org.jetbrains.annotations.NotNull;
 
+import java.text.MessageFormat;
+
 
 @SuppressWarnings("unchecked")
 public class TestClassStaticFieldAccessor implements FieldAccessor<TestClass> {
@@ -59,7 +61,13 @@ public class TestClassStaticFieldAccessor implements FieldAccessor<TestClass> {
                 obj.setF8((String) value);
                 break;
             default:
-                throw new IllegalArgumentException();
+                throw new IllegalArgumentException(MessageFormat.format("Class {} does not contain field {}", obj.getClass().getSimpleName(), fieldName));
         }
+    }
+
+    @NotNull
+    @Override
+    public Class<TestClass> getType() {
+        return TestClass.class;
     }
 }

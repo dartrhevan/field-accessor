@@ -2,7 +2,6 @@ package org.dartrhevan.fieldaccessor.testimpl;
 
 import org.dartrhevan.fieldaccessor.TestClass;
 import org.dartrhevan.fieldaccessor.api.FieldAccessor;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
 import java.util.function.BiConsumer;
@@ -32,12 +31,17 @@ public class TestClassMapFieldAccessor implements FieldAccessor<TestClass> {
     );
 
     @Override
-    public <V> V get(TestClass obj, @NotNull String fieldName) {
+    public <V> V get(TestClass obj, String fieldName) {
         return (V) getters.get(fieldName).apply(obj);
     }
 
     @Override
-    public <V> void set(TestClass obj, @NotNull String fieldName, V value) {
+    public <V> void set(TestClass obj, String fieldName, V value) {
         setters.get(fieldName).accept(obj, value);
+    }
+
+    @Override
+    public Class<TestClass> getType() {
+        return TestClass.class;
     }
 }
